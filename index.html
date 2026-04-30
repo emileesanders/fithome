@@ -289,7 +289,7 @@ Rules: 5-7 exercises, reps must be in seconds (e.g. "30 seconds"), beginner-frie
         throw new Error('Unexpected response format');
       }
 
-      const text = data.content.map(b => b.text || '').join('');
+      const text = (data.parsed || data).content.map(b => b.text || '').join('');
       const clean = text.replace(/```json|```/g, '').trim();
       const w = JSON.parse(clean);
       renderWorkout(w);

@@ -35,9 +35,10 @@ module.exports = async function handler(req, res) {
       response.on('data', chunk => data += chunk);
       response.on('end', () => {
         try {
-          res.status(200).json(JSON.parse(data));
+          const parsed = JSON.parse(data);
+          res.status(200).json({ raw: data, parsed: parsed });
         } catch(e) {
-          res.status(500).json({ error: 'Parse error: ' + data });
+          res.status(500).json({ error: 'Parse error', raw: data });
         }
         resolve();
       });
